@@ -7,5 +7,7 @@ setuprouteros() {
     cd ..
 }
 [ -f "./routeros/chr.vdi" ] || setuprouteros
-mkdir -p ./mikrorad
 
+add-apt-repository ppa:gns3/ppa
+apt update                                
+apt install gns3-gui gns3-server
