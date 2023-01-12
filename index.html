@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html class="no-js" lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Untitled</title>
+    <meta name="description" content="">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+</head>
+<body>
+    <h2>Masukkan ID komputer</h2><input id="comp"> <button id=
+    "btn">Cari</button>
+    <script>
+            var btn = document.getElementById('btn');
+            btn.addEventListener('click', function(){
+                var comp = document.getElementById('comp').value;
+                const c = Number(comp);
+                if ( c > 6000 ) {
+                    alert('ID komputer tidak boleh lebih dari 6000');
+                    return;
+                }
+                const index = (c - 5900) + 55500;
+                // get domain name of the web
+                var domain = window.location.hostname;
+                const to = `http://${domain}:${index}/vnc.html`;
+
+                const anchor = document.createElement('a');
+                anchor.href=to;
+                document.body.appendChild(anchor);
+                anchor.click();
+            });
+    </script>
+</body>
+</html>
