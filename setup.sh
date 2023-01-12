@@ -13,10 +13,11 @@ setuprouteros() {
 
 add-apt-repository ppa:gns3/ppa
 apt update
-apt install gns3-gui gns3-server python
+apt install gns3-gui gns3-server python nginx
 snap install docker
 snap install novnc
 
+rm /etc/nginx/nginx.conf
 ln $PWD/nginx.conf /etc/ngnx/nginx.conf
 
 cat <<EOF > server.conf
