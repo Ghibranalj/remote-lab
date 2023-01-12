@@ -1,7 +1,10 @@
+#!/usr/bin/env bash
+
 setuprouteros() {
     mkdir routeros
     cd routeros || exit
     wget 'https://download.mikrotik.com/routeros/7.6/chr-7.6.vdi.zip'
+    apt install unzip
     unzip chr-7.6.vdi.zip
     mv chr-7.6.vdi chr.vdi
     cd ..
@@ -11,6 +14,7 @@ setuprouteros() {
 add-apt-repository ppa:gns3/ppa
 apt update
 apt install gns3-gui gns3-server
+snap install docker
 
 cat <<EOF > server.conf
 [Server]
@@ -26,8 +30,8 @@ udp_start_port_range = 10000
 udp_start_end_range = 20000
 ubridge_path = /usr/bin/ubridge
 auth = False
-user = admin
-password = gns3
+user = bimbel
+password = mikrotik
 
 [VPCS]
 vpcs_path = /usr/bin/vpcs
