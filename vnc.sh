@@ -1,15 +1,6 @@
 #!/usr/bin/env sh
-
-PORT=5900
-TO=55500
-for i in $(seq 0 100); do
-    # add port with i
-    P=$((PORT + i))
-    T=$((TO + i))
-
-    novnc --listen $T --vnc localhost:$P &>> /dev/null  &
-    echo $! >> ./novnc.pid
-done
+websockify :6080 --web /usr/share/novnc --token-plugin TokenFile --token-source $PWD/token &
 python3 -m http.server
 
 killall python3
+killall websockify

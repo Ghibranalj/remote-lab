@@ -13,9 +13,8 @@ setuprouteros() {
 
 add-apt-repository ppa:gns3/ppa
 apt update
-apt install gns3-gui gns3-server python nginx
+apt install gns3-gui gns3-server python nginx novnc websockify
 snap install docker
-snap install novnc
 
 rm /etc/nginx/nginx.conf
 ln $PWD/nginx.conf /etc/ngnx/nginx.conf
@@ -57,5 +56,10 @@ enable_kvm = True
 require_kvm = True
 
 EOF
-
 mkdir -p gns3/{images,projects,appliances}
+
+echo "" > token
+for i in $(seq  0 150) ; do
+    PORT=$((5900 + $i))
+    echo ID$PORT: localhost:$PORT >> token
+done

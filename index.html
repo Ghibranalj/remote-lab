@@ -18,14 +18,9 @@
             btn.addEventListener('click', function(){
                 var comp = document.getElementById('comp').value;
                 const c = Number(comp);
-                if ( c > 6000 ) {
-                    alert('ID komputer tidak boleh lebih dari 6000');
-                    return;
-                }
-                const index = (c - 5900) + 55500;
                 // get domain name of the web
                 var domain = window.location.hostname;
-                const to = `http://${domain}:${index}/vnc.html`;
+                const to = `/novnc/vnc.html?resize=remote&path=novnc/websockify?token=ID${c}`;
 
                 const anchor = document.createElement('a');
                 anchor.href=to;
