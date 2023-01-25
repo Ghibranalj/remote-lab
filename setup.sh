@@ -14,10 +14,11 @@ setuprouteros() {
 add-apt-repository ppa:gns3/ppa
 apt update
 apt install gns3-gui gns3-server python nginx novnc websockify
-snap install docker
+# check if you have docker
+[ -x "docker version" ] && snap install docker
 
-rm /etc/nginx/nginx.conf
-ln $PWD/nginx.conf /etc/ngnx/nginx.conf
+sudo rm /etc/nginx/nginx.conf
+sudo ln $PWD/nginx.conf /etc/nginx/nginx.conf
 
 cat <<EOF > server.conf
 [Server]
