@@ -18,7 +18,7 @@ networks:
     name: "gns3-network"
     driver: bridge
     driver_opts:
-        com.docker.network.bridge.name: "internet-gw" 
+        com.docker.network.bridge.name: "internet" 
     ipam:
       config:
         - subnet: 192.168.200.0/24
