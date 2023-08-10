@@ -39,7 +39,7 @@
         {
             "filename": "chr-7.7.img",
             "version": "7.7",
-            "md5sum": "d8acd5dcf98502b871e9959704a6c05b",
+            "md5sum": "0871c6ca5665919c76302ae1ee156532",
             "filesize": 134217728,
             "download_url": "http://www.mikrotik.com/download",
             "direct_download_url": "https://download.mikrotik.com/routeros/7.7/chr-7.7.img.zip",
