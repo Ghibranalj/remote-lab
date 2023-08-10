@@ -1,6 +1,6 @@
-gns3
-gns3
 routeros/
 /server.conf
 /token
 *.service
+
+/gns3/

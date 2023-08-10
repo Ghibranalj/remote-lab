@@ -11,13 +11,18 @@ setuprouteros() {
 }
 [ -f "./routeros/chr.vdi" ] || setuprouteros
 
+tar -xvf chr-7.7.img.tar.gz
+mkdir -p gns3/images gns3/projects gns3/appliances
+mv chr-7.7.img gns3/images/
+cp *.gns3a gns3/appliances/
+
 sudo add-apt-repository ppa:gns3/ppa
 sudo apt update
 sudo apt install gns3-gui gns3-server python3 nginx novnc websockify
 # check if you have docker
 [ -x "docker version" ] && snap install docker
 
-sudo mv /etc/nginx/nginx.conf{,.bak}
+[[ -f  /etc/nginx/nginx.conf ]] && sudo mv /etc/nginx/nginx.conf{,.bak}
 sudo cp $PWD/nginx.conf /etc/nginx/nginx.conf
 
 cat <<EOF > server.conf
