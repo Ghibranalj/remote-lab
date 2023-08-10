@@ -8,17 +8,18 @@ services:
       - /dev/net/tun
     networks:
       bradius:
-        ipv4_address: 192.168.100.250
+        ipv4_address: 192.168.200.250
     ports:
       - "8291:8291"
     volumes:
       - "./routeros/chr.vdi:/routeros/chr-7.1beta6.vdi"
 networks:
   bradius:
-    name: "bridge-radius"
+    name: "gns3-network"
     driver: bridge
+    driver_opts:
+        com.docker.network.bridge.name: "internet-gw" 
     ipam:
       config:
-        - subnet: 192.168.100.0/24
-          gateway: 192.168.100.1
-
+        - subnet: 192.168.200.0/24
+          gateway: 192.168.200.1

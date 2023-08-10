@@ -4,20 +4,20 @@ setuprouteros() {
     mkdir routeros
     cd routeros || exit
     wget 'https://download.mikrotik.com/routeros/7.6/chr-7.6.vdi.zip'
-    apt install unzip
+    sudo apt install unzip
     unzip chr-7.6.vdi.zip
     mv chr-7.6.vdi chr.vdi
     cd ..
 }
 [ -f "./routeros/chr.vdi" ] || setuprouteros
 
-add-apt-repository ppa:gns3/ppa
-apt update
-apt install gns3-gui gns3-server python nginx novnc websockify
+sudo add-apt-repository ppa:gns3/ppa
+sudo apt update
+sudo apt install gns3-gui gns3-server python nginx novnc websockify
 # check if you have docker
 [ -x "docker version" ] && snap install docker
 
-sudo rm /etc/nginx/nginx.conf
+sudo mv /etc/nginx/nginx.conf{,.bak}
 sudo ln $PWD/nginx.conf /etc/nginx/nginx.conf
 
 cat <<EOF > server.conf
@@ -64,3 +64,21 @@ for i in $(seq  0 150) ; do
     PORT=$((5900 + $i))
     echo ID$PORT: localhost:$PORT >> token
 done
+
+cat <<EOF > gns3.service
+[Unit]
+Description=gns3 server
+
+[Service]
+User=$USER
+WorkingDirectory=$PWD
+ExecStart=/bin/sh $PWD/start.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo cp gns3.service /etc/systemd/system/gns3.service
+sudo systemctl daemon-reload
+sudo systemctl enable gns3.service
