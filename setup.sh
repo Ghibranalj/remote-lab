@@ -20,6 +20,8 @@ cp *.gns3a gns3/appliances/
 
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
+sudo usermod -aG docker $USER
+sudo systemctl enable docker
 
 sudo add-apt-repository ppa:gns3/ppa
 sudo apt update
@@ -65,6 +67,7 @@ enable_kvm = True
 require_kvm = True
 
 EOF
+
 mkdir -p gns3/{images,projects,appliances}
 
 echo "" > token
@@ -90,3 +93,7 @@ EOF
 sudo cp gns3.service /etc/systemd/system/gns3.service
 sudo systemctl daemon-reload
 sudo systemctl enable gns3.service
+
+echo "Rebooting in 5 seconds"
+sleep 5
+sudo reboot
