@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
-
 sudo apt update
-tar -xvf chr-7.7.img.tar.gz
 
 setuprouteros() {
-    sudo apt install qemu-utils
-    mkdir routeros
-    qemu-img convert -f raw -O vdi chr-7.7.img chr.vdi
-    cp chr.vdi routeros/
-    cd ..
+    tar -xvf chr.vdi.tar.gz
+    mkdir -p routeros
+    mv chr.vdi routeros/chr.vdi
 }
 [ -f "./routeros/chr.vdi" ] || setuprouteros
 
+tar -xvf chr-7.7.img.tar.gz
 mkdir -p gns3/images gns3/projects gns3/appliances
 mv chr-7.7.img gns3/images/
 cp *.gns3a gns3/appliances/
