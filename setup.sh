@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 
 sudo apt update
+tar -xvf chr-7.7.img.tar.gz
 
 setuprouteros() {
+    sudo apt install qemu-utils
     mkdir routeros
-    cd routeros || exit
-    wget 'https://download.mikrotik.com/routeros/7.6/chr-7.6.vdi.zip'
-    sudo apt install unzip
-    unzip chr-7.6.vdi.zip
-    mv chr-7.6.vdi chr.vdi
+    qemu-img convert -f raw -O vdi chr-7.7.img chr.vdi
+    cp chr.vdi routeros/
     cd ..
 }
 [ -f "./routeros/chr.vdi" ] || setuprouteros
 
-tar -xvf chr-7.7.img.tar.gz
 mkdir -p gns3/images gns3/projects gns3/appliances
 mv chr-7.7.img gns3/images/
 cp *.gns3a gns3/appliances/
