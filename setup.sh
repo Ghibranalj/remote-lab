@@ -4,6 +4,7 @@ setuprouteros() {
     mkdir routeros
     cd routeros || exit
     wget 'https://download.mikrotik.com/routeros/7.6/chr-7.6.vdi.zip'
+    sudo apt install unzip
     unzip chr-7.6.vdi.zip
     mv chr-7.6.vdi chr.vdi
     cd ..
@@ -15,15 +16,11 @@ mkdir -p gns3/images gns3/projects gns3/appliances
 mv chr-7.7.img gns3/images/
 cp *.gns3a gns3/appliances/
 
-sudo dnf copr enable tgerov/vpcs
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf -y install gns3-gui gns3-server python3 nginx novnc vpcs dynamips
-sudo dnf -y install bridge-utils libvirt virt-install qemu-kvm virt-manager
-
-sudo dnf -y install dnf-plugins-core
-sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-
-sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo add-apt-repository ppa:gns3/ppa
+sudo apt update
+sudo apt install gns3-gui gns3-server python3 nginx novnc websockify
+# check if you have docker
+[ -x "docker version" ] && snap install docker
 
 [[ -f  /etc/nginx/nginx.conf ]] && sudo mv /etc/nginx/nginx.conf{,.bak}
 sudo cp $PWD/nginx.conf /etc/nginx/nginx.conf
@@ -40,23 +37,23 @@ console_start_port_range = 2001
 console_end_port_range = 5000
 udp_start_port_range = 10000
 udp_start_end_range = 20000
-ubridge_path = $(which ubridge)
+ubridge_path = /usr/bin/ubridge
 auth = False
 user = bimbel
 password = mikrotik
 
 [VPCS]
-vpcs_path = $(which vpcs)
+vpcs_path = /usr/bin/vpcs
 
 [Dynamips]
 allocate_aux_console_ports = False
 mmap_support = True
-dynamips_path = $(which dynamips)
+dynamips_path = /usr/bin/dynamips
 sparse_memory_support = True
 ghost_ios_support = True
 
 [IOU]
-iouyap_path = $(which iouyap)
+iouyap_path = /usr/bin/iouyap
 iourc_path = $PWD/gns3/.iourc
 license_check = True
 
