@@ -58,8 +58,8 @@ iourc_path = $PWD/gns3/.iourc
 license_check = True
 
 [Qemu]
-enable_kvm = True
-require_kvm = True
+enable_kvm = $([ -f /dev/kvm ] && echo True || echo False)
+require_kvm = False
 
 EOF
 
